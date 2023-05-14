@@ -2,17 +2,29 @@ import { useState, useEffect } from 'react';
 import PrincipalScreen from './components/PrincipalScreen.jsx';
 import getToken from './libs/token.js';
 import DashboardScreen from './components/DashboardScreen.jsx';
+import { getSessionCookie, setSessionCookie } from './libs/cookieManager.js';
 
 function App() {
     const [token, setToken] = useState(null);
 
     useEffect(() => {
-        setToken(getToken);
-    }, [token]);
+        console.log("Token readed");
+        let token = getToken;
+        if (Object.keys(token).length === 0) {
+            let session_cookie = getSessionCookie;
+            if (!session_cookie) return;
+            setToken({ access_token: session_cookie });
+        }
+        else {
+            setSessionCookie(token);
+            setToken(getToken);
+        }
+    }, []);
 
     const screenRenderer = (_token) => {
+        // console.clear();
         if (!_token || !_token.access_token) return (<PrincipalScreen token={token}></PrincipalScreen>);
-        else return (<DashboardScreen token={token}></DashboardScreen>);        
+        else return (<DashboardScreen token={token}></DashboardScreen>);
     };
 
     return (

@@ -1,9 +1,9 @@
 // Credits to: https://www.smashingmagazine.com/2023/03/dynamic-donut-charts-tailwind-css-react/
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 const ChartLegend = ({ data, title, sub_title }) => {
-    const max = data.slice(1, data.length - 1).reduce((ini, val) => {
+    const max = data?.slice(1, data.length - 1).reduce((ini, val) => {
         if (val[1] > ini) return val[1];
         else return ini;
     }, -Infinity);
@@ -16,7 +16,7 @@ const ChartLegend = ({ data, title, sub_title }) => {
             </div>
             <div className="overflow-y-auto select-none">
                 <ul className='list-none flex flex-col gap-2 m-0 pr-5 p-0 text-gray-200'>
-                    {data.slice(1).map((item, i) => {
+                    {data?.slice(1).map((item, i) => {
                         // const { name, color, value } = item;
 
                         return (

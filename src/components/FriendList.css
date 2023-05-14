@@ -1,0 +1,15 @@
+@keyframes color-attention {
+    0% {
+        background-color: rgb(126, 126, 255);
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+
+.new-notification {
+    animation: color-attention 5s;
+}
+
